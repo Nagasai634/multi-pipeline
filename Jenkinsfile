@@ -1,16 +1,17 @@
-
 pipeline {
-    agent any 
-    environment {
-        DEPLOY_TO ='production'
-    }
+    agent any
     stages {
-        stage('proddeploy') {
-            when {
-               environment name: 'DEPLOY_TO', value: 'productions' 
-            }
+        stage('develop') {
             steps {
-                echo "building the production"
+                echo "welcome to develop stage1"
+            }
+        }
+        stage('production') {
+            steps { 
+                when {
+                    expression {BRANCH_NAME==~ /('production|develop')/}
+                }
+                echo "welcome to production stage2"
             }
         }
     }
