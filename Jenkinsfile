@@ -32,7 +32,7 @@ pipeline {
         }
         stage("deploytorelease") {
             when {
-                tag-name 'v1.2.4.5'
+                tagname: 'v1.2.4.5'
             }
             steps {
                 echo "deploying the release as tag"
