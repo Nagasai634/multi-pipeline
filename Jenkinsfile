@@ -1,10 +1,9 @@
-
 pipeline {
     agent {
         label 'docker-slave'
     }
     environment {
-        DOCKER_CREDS = creditinals('dockerhub_creds')
+        DOCKER_CREDS = credentials('dockerhub_creds')
         
     }
     stages {
