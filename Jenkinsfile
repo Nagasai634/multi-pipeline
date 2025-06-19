@@ -9,7 +9,7 @@ pipeline {
         }
         stage('production') {
             when {
-                    expression {BRANCH_NAME==~ /('production|develops')/}
+                    expression {BRANCH_NAME==~ /('develops|production')/}
                 }
             steps { 
                 echo "welcome to production stage2"
