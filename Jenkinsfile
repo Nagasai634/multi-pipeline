@@ -1,19 +1,41 @@
+
 pipeline {
-    agent any
-    environment {
-        DEPLOY_TO = 'production'
-    }
+    agent any 
     stages {
         stage('build') {
+            steps {
+                echo "building the code"
+            }
+        }
+        stage('codequality') {
+            steps {
+                 echo "checking the code quality"
+            }
+        }
+        stage('Dockerbuildnpush') {
+            steps {
+                echo "building the docker"    
+            }
+        }
+        stage('k8s') {
+            steps {
+                echo "deploying the image into k8s"
+            }
+        }
+        stage("deploytoprod") {
             when {
-                anyOf {
-                                    branch 'production'
-                  environment name: 'DEPLOY_TO',value: 'productionenv'
-                }
-
+                branch 'production'
             }
             steps {
-                echo "bulding the next env"
+                echo "deploying the product"
+            }
+        }
+        stage("deploytorelease") {
+            when {
+                tag-name 'v1.2.4.5'
+            }
+            steps {
+                echo "deploying the release as tag"
             }
         }
     }
