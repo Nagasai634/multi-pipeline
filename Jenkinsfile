@@ -1,3 +1,4 @@
+
 pipeline {
     agent any 
     environment {
@@ -7,6 +8,9 @@ pipeline {
         stage('proddeploy') {
             when {
                environment name: 'DEPLOY_TO', value: 'production' 
+            }
+            steps {
+                echo "building the production"
             }
         }
     }
