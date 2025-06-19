@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     stages {
@@ -7,10 +8,10 @@ pipeline {
             }
         }
         stage('production') {
-            steps { 
-                when {
+            when {
                     expression {BRANCH_NAME==~ /('production|develop')/}
                 }
+            steps { 
                 echo "welcome to production stage2"
             }
         }
