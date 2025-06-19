@@ -1,4 +1,3 @@
-
 pipeline {
     agent any 
     stages {
@@ -22,9 +21,9 @@ pipeline {
                 echo "deploying the image into k8s"
             }
         }
-        stage("deploytoprod") {
+        stage("deploytostage") {
             when {
-                branch 'production'
+                branch 'release/*'
             }
             steps {
                 echo "deploying the product"
@@ -32,7 +31,7 @@ pipeline {
         }
         stage("deploytorelease") {
             when {
-                tagname: 'v1.2.4.5'
+               tag pattern: 'v1.2.4.5',comparator: "REGEXP"
             }
             steps {
                 echo "deploying the release as tag"
