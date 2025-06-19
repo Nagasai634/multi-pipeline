@@ -6,9 +6,9 @@ pipeline {
     stages {
         stage('build') {
             when {
-                allOf {
+                anyOf {
                                     branch 'production'
-                  environment name: 'DEPLOY_TO',value: 'productions'
+                  environment name: 'DEPLOY_TO',value: 'productionenv'
                 }
 
             }
