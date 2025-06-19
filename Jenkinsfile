@@ -15,7 +15,7 @@ pipeline {
                 sh "docker tag nginx nagasaivardhan/ngnix:sai"
                 echo "docker login creditinals"
                 sh "docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}"
-                SH "docker push nagasaivardhan/ngnix:sai"
+                sh "docker push nagasaivardhan/ngnix:sai"
 
             }
         }
