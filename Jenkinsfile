@@ -1,18 +1,19 @@
-
 pipeline {
     agent any
+    environment {
+        DEPLOY_TO = 'production'
+    }
     stages {
-        stage('develop') {
-            steps {
-                echo "welcome to develop stage1"
-            }
-        }
-        stage('production') {
+        stage('build') {
             when {
-                    expression {BRANCH_NAME==~ /('develops|production')/}
+                allOf {
+                                    branch 'production'
+                  environment name: 'DEPLOY_TO',value: 'production'
                 }
-            steps { 
-                echo "welcome to production stage2"
+
+            }
+            steps {
+                echo "bulding the next env"
             }
         }
     }
