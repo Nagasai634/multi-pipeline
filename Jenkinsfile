@@ -1,40 +1,39 @@
 pipeline {
-    agent any 
+    agent any
+
     stages {
+        parallel {
+            stage('build') {
+                steps {
+                    echo "building the code"
+                    sleep 10
+                }
+            }
+            stage('codequality') {
+                steps {
+                    echo "checking the code quality"
+                    sleep 10
+                }
+            }
+        }
         stage('build') {
             steps {
-                echo "building the code"
+                echo "welcome to my first pipeline"
             }
         }
-        stage('codequality') {
+        stage('sonar') {
             steps {
-                 echo "checking the code quality"
+                echo "scanning the code"
             }
         }
-        stage('Dockerbuildnpush') {
+        stage('docker') {
             steps {
-                echo "building the docker"    
+                echo "building the docker image"
             }
         }
-        stage('k8s') {
+        stage('kube') {
             steps {
-                echo "deploying the image into k8s"
-            }
-        }
-        stage("deploytostage") {
-            when {
-                branch 'release/*'
-            }
-            steps {
-                echo "deploying the product"
-            }
-        }
-        stage("deploytorelease") {
-            when {
-               tag pattern: 'v1.2.4.5',comparator: "REGEXP"
-            }
-            steps {
-                echo "deploying the release as tag"
+                echo "deploying the k8s"
             }
         }
     }
